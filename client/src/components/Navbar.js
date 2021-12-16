@@ -1,10 +1,11 @@
 import React, {useContext} from 'react'
-import { useNavigate, BrowserRouter as NavLink } from "react-router-dom";
+import { NavLink } from "react-router-dom";
+import { useParams, useNavigate } from 'react-router-dom';
 import { HikerContext } from '../context/Hiker';
 
 const Navbar = () => {
     const { hiker, logout, loggedIn } = useContext(HikerContext)
-    //const navigate = useNavigate()
+    const navigate = useNavigate()
 
     const logoutUser = () => {
         fetch('/logout', {
@@ -13,7 +14,7 @@ const Navbar = () => {
         })
         .then(() => {
             logout()
-            //navigate('/')
+            navigate('/')
         })
     }
 
@@ -24,7 +25,7 @@ const Navbar = () => {
                 <br/>
                 <h3>Instruction page</h3>
                 <button onClick={logoutUser}>Logout</button>
-                <NavLink to='/trails'>signup
+                <NavLink to='/trails'>
                   <button>My trails</button>
                 </NavLink>
             </div>
@@ -33,13 +34,15 @@ const Navbar = () => {
     else {  
       return (
       <div>
-        <NavLink to="/login">login
+        <ul>
+        <NavLink to="/login">
           <button>Login</button>
         </NavLink>
         <br/>
-        <NavLink to="/signup">signup
+        <NavLink to="/signup">
           <button>Sign up</button>
         </NavLink>
+        </ul>
       </div>
       )
     }

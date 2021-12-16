@@ -12,6 +12,6 @@ const Home = () => {
         
         )
     } else 
-    return (<h1>Login or signup</h1>) 
+    return (<h1><u>Login or signup</u></h1>) 
 }
 export default Home;

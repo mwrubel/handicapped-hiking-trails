@@ -16,7 +16,7 @@ class TrailsController < ApplicationController
     end
 
     def show
-        trail = current_user.trails.find_by(id: params[:id]) #hiker_id?
+        trail = current_user.trails.find_by(id: params[:id]) 
         if trail
             render json: trail
         else
@@ -25,16 +25,17 @@ class TrailsController < ApplicationController
     end
 
     def destroy
-        trail = current_user.trails.find_by(id: params[:id]) #hiker_id?
+        trail = current_user.trails.find_by(id: params[:id]) 
         if trail
-        trail.destroy
+            trail.destroy
+            head :no_content
         else
             render json: { error: "COULDNT FIND TRAIL TO DELETE" }
         end
     end
 
     def update
-        trail = current_user.trails.find_by(id: params[:id]) #hiker_id?
+        trail = current_user.trails.find_by(id: params[:id]) 
         if trail
             trail.update(trail_params)
         else
