@@ -39,6 +39,7 @@ class TrailsController < ApplicationController
         if trail
             trail.update(trail_params)
         else
+            #byebug
             render json: { error: "COULDN'T UPDATE" }, status: :unauthorized
         end
         #trail.update(trail_name: params[:trail_name], city: params[:city], address: params[:address], zip: params[:zip], difficulty: params[:difficulty], picture: params[:picture])
@@ -51,7 +52,7 @@ class TrailsController < ApplicationController
     end
 
     def trail_params
-        params.permit(:trail_name, :city, :address, :zip, :difficulty, :picture)
+        params.permit(:id, :trail_name, :city, :address, :zip, :difficulty, :picture)
     end
 
     def authorize
