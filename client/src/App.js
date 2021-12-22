@@ -7,6 +7,7 @@ import Home from "./components/Home"
 import Signup from './components/Signup'
 import Login from './components/Login'
 import Trails from './components/Trails';
+import EditTrailForm from './components/EditTrailForm';
 
 function App() {
   return (

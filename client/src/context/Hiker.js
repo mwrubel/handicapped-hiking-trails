@@ -10,6 +10,7 @@ function HikerProvider({ children }) {
     const [hiker, setHiker] = useState(null)
     const [loggedIn, setLoggedIn] = useState(false)
     const [trails, setTrails] = useState([])
+    const [newTrail, setNewTrail] = useState("")
     // const navigate = useNavigate()
 
     useEffect(() => {
@@ -39,7 +40,7 @@ function HikerProvider({ children }) {
         console.log(trail)
         fetch('/trails', {
             method: 'POST',
-            headers: { 'Content-Type': 'application/json'},
+            headers: { "Content-Type": "application/json"},
             body: JSON.stringify(trail)
         })
         .then(res => res.json())
@@ -49,43 +50,39 @@ function HikerProvider({ children }) {
     }
 
     //edit trail function
-    // const editTrail = (e, trail) => {
-    //     // console.log(trail.trail_name)
-    //     console.log(trail)
-    //       fetch('/trails/' + e.target.id, {
-    //           method: "PATCH",
-    //           headers: {"Content-Type": "application/json"},
-    //           body: JSON.stringify(trail)
-    //       })
-    //       .then(res => res.json())
-    //       .then(data => {
-    //           setTrails([...trails,data])
-    //       })
-    //     //   addTrailFlag()
-    // }
-
-    //edit trail function
-    const editTrail = (e) => {
-          fetch('/trails/' + e.target.id, {
-              method: "PATCH",
-              headers: {"Content-Type": "application/json"},
-              body: JSON.stringify({})
-          })
-          .then(res => res.json())
-          .then(data => {
-              setTrails([...trails,data])
-          })
+    const editTrail = (id, trail) => {
+        console.log("PATCH ID" + id)
+        fetch('/trails/' + id, {
+            method: "PATCH",
+            headers: { "Content-Type": "application/json",
+            "Access-Control-Allow-Origin": "*", },
+            body: JSON.stringify({
+            trail_name: trail.trail_name, 
+            city: trail.city,
+            address: trail.address, 
+            zip: trail.zip, 
+            difficulty: trail.difficulty,
+            picture: trail.picture})
+        })
+        .then(res => res.json())
+        .then(data => {
+            setTrails([...trails, data])
+        })
+        fetchTrails()
     }
 
     // delete function
     const deleteTrail = (e) => {
-        //delete get info from session
         fetch('/trails/' + e.target.id, {
             method: "DELETE"
         })
-        let updatedTrails = trails
-        updatedTrails.splice(e,1)
-        setTrails([...updatedTrails])
+        fetchTrails()
+        // console.log(trails)
+        //  let updatedTrails = trails
+        //  updatedTrails.filter((item) => item.trail_name !== e.target.value)
+        //  console.log("e: "+e.target.id)
+        //  setTrails([...updatedTrails])
+        //  console.log(updatedTrails)
     }
 
     const login = (hiker) => {

@@ -19,8 +19,7 @@ const Login = () => {
         })
             .then(res => res.json())
             .then(hiker => {
-                login(hiker)
-            
+                login(hiker)            
             })
     }
 

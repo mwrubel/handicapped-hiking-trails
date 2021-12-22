@@ -1,8 +1,8 @@
 import React, { useState, useContext } from 'react'
 import { HikerContext } from '../context/Hiker'
 
-const EditTrailForm = ({editTrailFlag}) => {
-    const {editTrail} = useContext(HikerContext)
+const EditTrailForm = ({editTrailFlag, trail}) => {
+    const {trails, editTrail} = useContext(HikerContext)
     const [trailName, setTrailName] = useState("")
     const [city, setCity] = useState("")
     const [address, setAddress] = useState("")
@@ -10,9 +10,12 @@ const EditTrailForm = ({editTrailFlag}) => {
     const [difficulty, setDifficulty] = useState(0)
     const [picture, setPicture] = useState("")
 
+    let id = trail.id
+    
     const handleSubmit = (e) => {
+        console.log("ID"+ id)
         e.preventDefault()
-        editTrail({
+        editTrail(id, {
             trail_name: trailName,
             city: city,
             address: address,
@@ -25,7 +28,7 @@ const EditTrailForm = ({editTrailFlag}) => {
 
     return (
         <form onSubmit={handleSubmit}>
-            <label>Trail name: </label>
+            <label>Edit Trail name: </label>
             <input
                 type="text"
                 id="trailName"
@@ -67,7 +70,7 @@ const EditTrailForm = ({editTrailFlag}) => {
                 value={picture}
                 onChange={(e) => setPicture(e.target.value)}
             /> <br/>
-            <input type="submit" id="1"/>
+            <input type="submit" id={id}/>
         </form>
     )
 }
